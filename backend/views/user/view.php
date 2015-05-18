@@ -20,16 +20,8 @@ $this->title = $model->username;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?=
-        Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ])
-        ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+        
     </p>
     <div style="margin: 30px;">
     <img src="<?php echo Yii::getAlias('@profilurl') . "/" . $model->image; ?>" style="width: 50%;border-radius: 50%;"/>        

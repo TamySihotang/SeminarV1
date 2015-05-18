@@ -34,14 +34,14 @@ class NewsController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-    $query = News::find();
-    $user = User::find();
-      $pagination = new Pagination(
-               [
-          'defaultPageSize' => 5,
-          'totalCount' => $query->count(),
-       ]);
-    $News= News::find()->limit(5)->orderBy('date ASC')
+        $query = News::find();
+        $user = User::find();
+        $pagination = new Pagination(
+                [
+            'defaultPageSize' => 5,
+            'totalCount' => $query->count(),
+        ]);
+        $News = News::find()->limit(5)->orderBy('date ASC')
                 ->all();
 
         return $this->render('index', [
@@ -69,22 +69,21 @@ class NewsController extends Controller {
     public function actionCreate() {
         $model = new News();
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->user_id = \Yii::$app->user->id;
             $model->date = date('y-m-d h:m:s');
             $model->save();
 //            print_r($model->getErrors());
 //            die();
 //            return $this->redirect(['view', 'id' => $model->id]);
-
             //  return $this->redirect(['view', 'id' => $model->id]);
             $imageName = Yii::$app->security->generateRandomString();
             $image = \yii\web\UploadedFile::getInstance($model, 'picture');
-            
+
             if ($image !== null) {
                 $model->picture = $image->getBaseName();
                 $path = Yii::getAlias('../web/picture/') . $model->picture;
-            
+
 //                print_r($model->getErrors());
 //            die();
             }
@@ -93,18 +92,19 @@ class NewsController extends Controller {
 //                print_r($model->getErrors());
 //            die();
                 return $this->redirect(['view', 'id' => $id]);
-            } else {}
+            } else {
+                
+            }
         } else {
             return $this->render('create', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
 //        } else {
 //            return $this->render('create', [
 //                        'model' => $model,
 //            ]);
-        }
-    
+    }
 
     /**
      * Updates an existing News model.
@@ -116,15 +116,14 @@ class NewsController extends Controller {
         $model = $this->findModel($id);
 
 
- if ($model->load(Yii::$app->request->post()) && $model->save()) {
-$model->date=  date('yyyy-M-d');
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->date = date('yyyy-M-d');
             return $this->redirect(['view', 'id' => $model->id]);
 
             //  return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                         'model' => $model,
-                        
             ]);
         }
     }
@@ -155,17 +154,17 @@ $model->date=  date('yyyy-M-d');
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    public function actionUser(){
-         if (($model = News::findOne($id)) !== null) {
-        return $this->render('index', [
-                    'User' => $User,
-                    'pagination' => $pagination,
-        ]);
-    } 
-    
-         }
-         
-         /**
+
+    public function actionUser() {
+        if (($model = News::findOne($id)) !== null) {
+            return $this->render('index', [
+                        'User' => $User,
+                        'pagination' => $pagination,
+            ]);
+        }
+    }
+
+    /**
      * Displays a single News model.
      * @param integer $id
      * @return mixed
@@ -175,10 +174,9 @@ $model->date=  date('yyyy-M-d');
                     'model' => $this->findModel($id),
         ]);
     }
-    
-    public function getImageurl()
-    {
-      return \Yii::getAlias('@imageurl').'/'.$this->picture;
+
+    public function getImageurl() {
+        return \Yii::getAlias('@imageurl') . '/' . $this->picture;
     }
 
 }

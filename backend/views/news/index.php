@@ -35,7 +35,7 @@ use common\models\News;
 </div>-->
                                             <div class="inti">
                                       <?= Html::encode(implode(' ', array_slice(explode(' ', $New->content), 0, 20))) ?><br>
-                                    <?= Html::a('Read More', ['view', 'id' => $New->id], ['class' => 'btn btn-danger']) ?>
+                                    <?= Html::a('Read More', ['view', 'id' => $New->id], ['class' => 'btn btn-default']) ?>
                                             </div></div>
                                     <?php
                                 }//LinkPager::widget(['pagination' => $pagination]) 

@@ -6,9 +6,7 @@ use yii\helpers\Html;
 
 /* @var $model common\models\News */
 
-$this->title = 'Update News: ' . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'News', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->title='úpdate';
 
 
 /* @var $model common\models\News\News */

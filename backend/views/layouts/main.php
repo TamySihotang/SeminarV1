@@ -272,13 +272,13 @@ AppAsset::register($this);
                                     
 <!--                               SPONSOR     -->
                     <div class="coba">
-                    <div class="setanimate" style=" text-align:center">
+                    <div class="setanimate" >
                         <div class="tm-wrap">
-                            <div class="title">
-                                
+                            
+                                <h1>
                                     Di dukung oleh
-                                
-                            </div>
+                                </h1>
+                        </div><center>
                             <div class="one-third tm-animate slide-from-left">
                                 <img alt="img" style="margin:30px 0" src="admin/assets/img/sample/home/comment/telkom.png">
                                 <div class="tm-testimonial tm-style2">
@@ -324,7 +324,7 @@ AppAsset::register($this);
                                     </div>
                                 </div>
                             </div>                  
-
+                        </center>
                         </div>
                     </div>
                 </div>

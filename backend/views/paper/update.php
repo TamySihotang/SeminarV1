@@ -7,8 +7,8 @@ use yii\helpers\Html;
 /* @var $model common\models\Paper */
 
 $this->title = 'Update Paper: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Papers', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+//$this->params['breadcrumbs'][] = ['label' => 'Papers', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 
 /* @var $model common\models\Paper\Paper */
 //
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' 
 //$this->params['breadcrumbs'][] = ['label' => 'Papers', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 
-$this->params['breadcrumbs'][] = 'Update';
+//$this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="paper-update">
 

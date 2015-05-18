@@ -30,10 +30,10 @@ $this->title = $model->pre_paper;
 
     <p>
 
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
         <?=
         Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-primary',
+            'class' => 'btn btn-default',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
@@ -82,7 +82,7 @@ $form->field($model, 'content')->widget(CKEditor::className(), [
 
 
 <div class="form-group">
-<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-default']) ?>
 </div>
 
 <?php ?>

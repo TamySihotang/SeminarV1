@@ -29,9 +29,9 @@ $this->title = $model->title;
 
     <p><br>
         
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-             'class' => 'btn btn-primary',
+             'class' => 'btn btn-default',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
@@ -41,9 +41,10 @@ $this->title = $model->title;
        
     </p>
     <div style="float:left; margin: 30px">
-    <img src="<?php echo Yii::getAlias('@imageurl') . "/" . $model->picture; ?>" class="img-circle" style="width: 100%"/>
+    <img src="<?php echo Yii::getAlias('@imageurl') . "/" . $model->picture; ?>" style="width: 100%"/>
     </div>
+    <div class="inti">
     <?= Html::encode("$model->content") ?>
-                    
+    </div>  
 
 </div>
