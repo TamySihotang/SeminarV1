@@ -1,0 +1,248 @@
+/* 
+Botany Template 
+http://www.templatemo.com/preview/templatemo_391_botany 
+*/
+
+/* How to do full page background image - http://css-tricks.com/perfect-full-page-background-image/ */
+/* carasmo's comment to hide horizontal scroll bar https://github.com/twbs/bootstrap/issues/10711 */
+
+body {
+	background-color: #222222;
+        background: url(images/background.jpg)no-repeat center center fixed;
+}
+
+a { color: #f55b1f; }
+a:hover, a:focus { color: #CCFF66; }
+
+
+.gbr{
+    width: 70%;
+    float : right;
+   
+}
+
+.kiri{
+    
+    text-align: justify;
+    float: left;
+    width : 30%;
+    padding-right: 0px;
+    color : white;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    
+}
+
+.tengah{
+    text-align: justify;
+    float: left;
+    width: 70%;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    /*padding-right: -20px;*/
+    padding-left: 40px;
+    
+}
+
+.inti{
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    color:white;
+    text-align: justify;
+}
+.teng{
+    text-align: justify;
+    float: left;
+    width : 20%;
+    padding-left: 100px
+}
+
+
+.kanan{
+   // padding-right: 10px;
+    text-align: justify;
+    float: right;
+    width : 20%;
+    color : white;
+    /*padding-left: -30px*/
+}
+.tb{
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    color:white;
+}
+.profil{
+    font-size: 18px;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+.templatemo_logo {
+	margin-top: 20px;
+	text-align: center;
+        color: #ffffff;
+        font-size: 30px;
+        font-family: bodoni;
+
+}
+
+#templatemo_menu {
+        
+	width: 100%;
+	height: 80px;
+	background: #0e0e0e;
+}
+
+
+ul.sidebar_link li {
+	padding: 10px 0;
+	border-bottom: 1px solid #999;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+}
+
+
+.news_list { margin-bottom: 40px ; font-family: Arial, sans-serif;}
+.news_list .date { color: #fff }
+.news_list a { display:block; margin-bottom: 5px; font-weight: 700; font-size:18px; font-family: Arial, sans-serif;}
+.news_list p { font-size: 18px; font-family: Arial, sans-serif; }
+
+
+.templatemo_juice_bg {
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	overflow-x: hidden;
+}
+
+.templatemo_flower_1 {
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	overflow-x: hidden;
+}
+
+.templatemo_flower_2 {
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	overflow-x: hidden;
+}
+
+.templatemo_garden_bg {
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	overflow-x: hidden;
+}
+
+.templatemo_padaut_bg {
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	overflow-x: hidden;
+}
+
+.flexslider { width: 99%; }
+
+.img_left {	float: left; margin-right: 20px; margin-bottom: 15px; }
+
+h1 { text-align: center; color: #e13916; }
+h4 { color: #FF961F; }
+
+li { color: white; }
+li, input { font-family: Arial, sans-serif; }
+li.active a { background-color: rgba(255, 255, 255, 0.2); color: #f55b1f; }
+
+nav { 
+	text-align: center; 
+        font-size: 20px;
+	font-family: Arial, sans-serif; 
+	margin-top: 30px; 
+	margin-bottom: 20px; 
+}
+
+p {  color: #FFF; font-family: Arial, sans-serif; }
+iframe, object, embed { width: 100%; border: none; margin-bottom: 20px; }
+
+hr { 
+	display: block; 
+	height: 1px; 
+	border: 0; 
+	border-top: 1px dashed #ccc; 
+	margin: 1em 0; 
+	padding: 0;
+}
+article { margin-top: 15px; margin-bottom: 15px; }
+
+.btn { border-radius: 0px; font-family: Arial, sans-serif; }
+
+.btn-primary { background-color: #f55b1f; border-color: #c48c76; }
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { 
+	background-color: #e13916; 
+	border-color: #c48c76; 
+}
+
+.nav > li > a:hover { text-decoration: none; background-color: #f55b1f; color:white; display: list-item;
+float: none; } 
+.nav > li > a:focus {text-decoration: none; background-color: #f55b1f; color:white; display: list-item;
+float: none; }
+
+.navbar-form { margin-bottom: 20px; }
+
+.form-control { border-radius: 0px; }
+.form-control:focus { 
+	border-color: rgba(245, 91, 31, 0.8); 
+	outline: 0; 
+	-moz-box-shadow: 0 0 8px rgba(241, 50, 150, 0.6); 
+	box-shadow: 0 0 8px rgba(241, 50, 150, 0.6) !important; 
+}
+
+.credit { padding-bottom: 9px; padding-top: 12px; background-color: rgba(0, 0, 0, 0.5); }
+.container {  margin: 0 auto;  background-color: rgba(0, 0, 0, 0.5); }
+
+.left-inner-addon { position: relative; }
+.left-inner-addon input, .left-inner-addon textarea { padding-left: 30px; }
+.left-inner-addon span { position: absolute; padding: 10px 12px; pointer-events: none; }
+
+.float_r { float: right }
+.img-thumbnail { border-radius: 0px; background-color: rgba(255, 255, 255, 0.2); border: none; }
+
+#left_contain {  background-color: #58545a;  text-align: left; width: 100%; }
+
+#left_container {  background-color: #58545a;  text-align: center; }
+#left_container li a { color: white; }
+
+#right_container .row { clear: both; padding-top: 0px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px; }
+#right_container .col-md-7 { padding-left: 0px; }
+
+#right_container h2 { color: #f55b1f; }
+#right_container h3 { color: #f55b1f; }
+
+#templatemo_footer { color: #FFFFFF; font-size: 18px; text-align: center; font-family: Arial, sans-serif; }
+
+@media only screen and (max-width: 480px) {
+ article img { margin-bottom: 10px; }
+ article .btn { margin-bottom: 20px; }
+ h4, p { text-align: center; }
+ .btn { margin: 0 auto; }
+}
+
+@media only screen and (min-width: 992px) {
+  .container {  display: table; }
+  #left_container { display: block; height: 100%; width: 100%; }
+  #right_container {  padding-top: 10px; display: table-cell;}
+  .col-md-3, .col-md-9 { float: none; }
+}
+
+@media only screen and (max-width: 991px) {
+  .container { display: block; }
+  #left_container { display: block; height: auto; padding-top: 10px; padding-bottom: 20px; }
+  #right_container { display: block; }
+  #right_container .col-md-7 { padding-left: 15px; }
+}
