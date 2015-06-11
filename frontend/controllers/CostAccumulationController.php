@@ -7,9 +7,6 @@ use Yii;
 use common\models\CostAccumulation;
 use common\models\CostAccumulationSearch;
 
-use common\models\CostAccumulation\CostAccumulation;
-use common\models\CostAccumulation\CostAccumulationSearch;
-
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -69,9 +66,9 @@ class CostAccumulationController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            return $this->redirect(['view', 'id' => $model->id_accumulation]);
-
             return $this->redirect(['view', 'id' => $model->id]);
+
+            //return $this->redirect(['view', 'id' => $model->id]);
 
         } else {
             return $this->render('create', [
@@ -92,9 +89,9 @@ class CostAccumulationController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            return $this->redirect(['view', 'id' => $model->id_accumulation]);
-
             return $this->redirect(['view', 'id' => $model->id]);
+
+           // return $this->redirect(['view', 'id' => $model->id]);
 
         } else {
             return $this->render('update', [

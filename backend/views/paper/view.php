@@ -6,8 +6,11 @@ use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
 use kartik\editable\Editable;
 use dosamigos\ckeditor\CKEditor;
+use dosamigos\ckeditor\CKEditorInline;
 use kartik\grid\GridView;
 use kartik\select2\Select2;
+//use himiklab\ckeditor\CKEditor;
+
 /* @var $this yii\web\View */
 
 /* @var $model common\models\Paper */
@@ -21,8 +24,6 @@ use kartik\select2\Select2;
 /* @var $model common\models\Paper\Paper */
 
 $this->title = $model->pre_paper;
-
-
 ?>
 <div class="paper-view">
 
@@ -47,43 +48,63 @@ $this->title = $model->pre_paper;
         'model' => $model,
         'attributes' => [
             [
-            'attribute'=>'pre_paper',
-            'format'=>'raw',
-            'value'=>Html::a($model->pre_paper,['download','id'=>$model->id]),
-        ],
-
+                'attribute' => 'pre_paper',
+                'format' => 'raw',
+                'value' => Html::a($model->pre_paper, ['download', 'id' => $model->id]),
+            ],
         ],
     ])
     ?>
 </div>
 
 <div>
-    
+
     <br>
 </div>
 <?php
-$model = new \common\models\CommentPaper();
-
 
 ?>
 
-            <?php
-        $this->beginContent('../views/paper/_viewComment.php');
-        $this->endContent();
-            
-            ?>
-<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-<?=
-$form->field($model, 'content')->widget(CKEditor::className(), [
-    'options' => ['rows' => 6],
-    'preset' => 'basic'
-])
+<?php
+//        $this->beginContent('../views/paper/_viewComment.php');
+//        $this->endContent();
+//            
+//            
 ?>
+
 
 
 <div class="form-group">
-<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-default']) ?>
+
+
+
+
+
+
+    <br><br>
+ 
+<?=
+GridView::widget([
+    'dataProvider' => $dataProvider,
+    'columns' => [
+        ['class' => 'yii\grid\SerialColumn'],
+        [
+            'attribute' => 'user_id',
+            'value' => 'user.username',
+        ],
+        'content',
+    ],
+]);
+?><?php
+$model = new \common\models\CommentPaper();
+?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+
+<?= $form->field($model, 'content')->widget(CKEditor::className(), [
+        'preset' => 'full'
+    ]) ?>
+<?= Html::submitButton($model->isNewRecord ? 'Comment' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-default']) ?>
 </div>
 
-<?php ?>
+    <?php ?>
 <?php ActiveForm::end(); ?>

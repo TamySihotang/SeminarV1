@@ -10,6 +10,8 @@ use common\models\News;
 use common\models\NewsSearch;
 use yii\web\NotFoundHttpException;
 use yii\data\Pagination;
+use backend\models\SignupForm;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -28,6 +30,11 @@ class SiteController extends Controller
                     [
                         'actions' => ['login', 'error'],
                         'allow' => true,
+                    ],
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                     [
                         'actions' => ['logout', 'index'],
@@ -108,6 +115,71 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+public function actionSignup() {
+        $model = new SignupForm();
+        print_r($model);
+                die();
+        if ($model->load(Yii::$app->request->post())) {
 
+            $imageName = Yii::$app->security->generateRandomString();
+            $image = \yii\web\UploadedFile::getInstance($model, 'image');
+            
+            if ($image !== null) {
+                $model->image = $imageName;
+                $path = Yii::getAlias('../web/picture/') . $model->image;
+            
+                
+            }
+            if ($model->save()) {
+                ($image !== null) ? $image->saveAs($path) : '';
+                
+                return $this->redirect('signup');
+            }
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        } else {
+            return $this->render('signup', [
+                        'model' => $model,
+            ]);
+        }
+}
+
+//        $model = new SignupForm();
+//        if ($model->load(Yii::$app->request->post())) {
+//            
+//            $imageName = $model->username;
+//            
+//            //$model->file = \yii\web\UploadedFile::getInstance($model, 'image');
+//            $image= UploadedFile::getInstance($model, 'image');
+//            var_dump($image);
+//            die();
+//          if($image !== null){
+//            $model->pre_paper = $image->getBaseName();
+//            $path = Yii::getAlias('../web/picture/') . $model->image;
+//          }
+//          if($image->save()){
+//              ($image !== null) ? $image->saveAs($path):'';
+//              return $this->redirect(['signup']);
+//          }
+////            $model->file->saveAs( '../web/picture/'.$imageName. '.'.$model->file->extension);
+////            print_r($model->getErrors());
+////            die();
+//            //save the path in the db coloumn
+//            
+////            $model->image = $imageName. '.'.$model->file->extension;
+//            
+//            if ($user = $model->signup()) {
+//                if (Yii::$app->getUser()->login($user)) {
+//                    return $this->goHome();
+//                }
+//            }
+//        } 
+//        return $this->render('signup', [
+//                        'model' => $model,
+//            ]);
+//    }
 }
 

@@ -7,8 +7,6 @@ use Yii;
 use common\models\User;
 use common\models\UserSearch;
 
-use common\models\User\User;
-use common\models\User\UserSearch;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -43,6 +41,7 @@ class UserController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            
         ]);
     }
 
@@ -122,5 +121,9 @@ class UserController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+     public function getImageurl()
+    {
+      return \Yii::getAlias('@imageurl').'/'.$this->picture;
     }
 }

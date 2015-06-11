@@ -44,13 +44,13 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-//        'view' => [
-//              'theme' => [
-//                 'pathMap' => [
-//                    '@app/views' => '@app/web/themes/fedora/views'],
-//                                    'baseUrl'=>'@web/themes/fedora'
-//                 ],
-//               ],    
+        'view' => [
+              'theme' => [
+                 'pathMap' => [
+                    '@app/views' => '@app/web/adminlte'],
+                                    'baseUrl'=>'@web/adminlte'
+                 ],
+               ],    
         ],
     'params' => $params,
 ];

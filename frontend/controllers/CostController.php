@@ -7,8 +7,7 @@ use Yii;
 use common\models\Cost;
 use common\models\CostSearch;
 
-use common\models\Cost\Cost;
-use common\models\Cost\CostSearch;
+
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -69,9 +68,9 @@ class CostController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            return $this->redirect(['view', 'id' => $model->id_cost]);
-
             return $this->redirect(['view', 'id' => $model->id]);
+
+          //  return $this->redirect(['view', 'id' => $model->id]);
 
         } else {
             return $this->render('create', [
@@ -92,9 +91,9 @@ class CostController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            return $this->redirect(['view', 'id' => $model->id_cost]);
-
             return $this->redirect(['view', 'id' => $model->id]);
+
+        //  return $this->redirect(['view', 'id' => $model->id]);
 
         } else {
             return $this->render('update', [

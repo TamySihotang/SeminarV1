@@ -15,38 +15,41 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $basePath = 'C:\xampp\htdocs\advanced\backend\web';
+    public $baseUrl = 'C:\xampp\htdocs\advanced\backend\web';
     public $css = [
         'css/site.css',
-        'admin/assets/style.css',
-        'admin/assets/css/shortcode.css',
-        'admin/assets/css/woocommerce.css' ,
-        'admin/assets/css/responsive.css',
-        'admin/assets/3rd/font-awesome/font-awesome.css',
-        'admin/assets/3rd/pretty-photo/pretty-photo.css' ,
-        'admin/assets/3rd/layerslider/css/layerslider.css' ,
+//        'admin/assets/style.css',
+//        'admin/assets/css/shortcode.css',
+//        'admin/assets/css/woocommerce.css' ,
+//        'admin/assets/css/responsive.css',
+//        'admin/assets/3rd/font-awesome/font-awesome.css',
+//        'admin/assets/3rd/pretty-photo/pretty-photo.css' ,
+//        'admin/assets/3rd/layerslider/css/layerslider.css' ,
+////        'adminlte/css/AdminLTE.css',
+//        'css'
     ];
     public $js = [
-                'admin/assets/3rd/jquery/jquery-core.js',
-		'admin/assets/3rd/jquery/jquery-ui.js',
-		'admin/assets/3rd/jquery/jquery-tinynav.js',
-		'admin/assets/3rd/jquery/jquery-isotope.js',
-		'admin/assets/3rd/jquery/jquery-flexslider.js',
-		'admin/assets/3rd/jquery/jquery-countdown.js',
-		'admin/assets/3rd/jquery/jquery-masonry.js',
-		'admin/assets/3rd/jquery/jquery.leanModal.min.js',
-		'admin/assets/3rd/jquery/jquery-validate.js',
-		'admin/assets/3rd/pretty-photo/pretty-photo.js',
-		'admin/assets/3rd/layerslider/js/greensock.js',
-		'admin/assets/3rd/layerslider/js/layerslider_kreaturamedia_jquery.js',
-		'admin/assets/3rd/layerslider/js/layerslider_transitions.js',
-		'admin/assets/js/theme.js',
+//                'adminlte/js/AdminLTE/app.js',
+//                'admin/assets/3rd/jquery/jquery-core.js',
+//		'admin/assets/3rd/jquery/jquery-ui.js',
+//		'admin/assets/3rd/jquery/jquery-tinynav.js',
+//		'admin/assets/3rd/jquery/jquery-isotope.js',
+//		'admin/assets/3rd/jquery/jquery-flexslider.js',
+//		'admin/assets/3rd/jquery/jquery-countdown.js',
+//		'admin/assets/3rd/jquery/jquery-masonry.js',
+//		'admin/assets/3rd/jquery/jquery.leanModal.min.js',
+//		'admin/assets/3rd/jquery/jquery-validate.js',
+//		'admin/assets/3rd/pretty-photo/pretty-photo.js',
+//		'admin/assets/3rd/layerslider/js/greensock.js',
+//		'admin/assets/3rd/layerslider/js/layerslider_kreaturamedia_jquery.js',
+//		'admin/assets/3rd/layerslider/js/layerslider_transitions.js',
+//		'admin/assets/js/theme.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
-        'yii\web\JqueryAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
+//        'yii\web\JqueryAsset',
+//        'yii\bootstrap\BootstrapPluginAsset',
     ];
 }

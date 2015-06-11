@@ -16,7 +16,6 @@ use Yii;
  * @property string $content
  * @property string $post_news
  * @property file $picture
-
  *
  * @property User $user
  */
@@ -73,4 +72,11 @@ class News extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+    
+    public function getNewsPictureFile()
+    {
+        return isset ($this->picture); 
+        // ? \Yii::$app->params['update'].'news/update/'.$this->picture : null;
+    }
+    
 }

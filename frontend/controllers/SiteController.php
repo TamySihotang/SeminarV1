@@ -41,12 +41,12 @@ class SiteController extends Controller {
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+//            'verbs' => [
+//                'class' => VerbFilter::className(),
+//                'actions' => [
+//                    'logout' => ['post'],
+//                ],
+//            ],
         ];
     }
 
@@ -148,7 +148,7 @@ class SiteController extends Controller {
             //save the path in the db coloumn
             
             $model->image = $imageName. '.'.$model->file->extension;
-            
+//            $var = '/advanced/backend/web/index.php?r=site%2Findex';
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();

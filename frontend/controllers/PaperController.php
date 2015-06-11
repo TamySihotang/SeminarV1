@@ -8,7 +8,12 @@ use common\models\Paper;
 use common\models\PaperSearch;
 use common\models\CommentPaper;
 use common\models\CommentPaperSearch;
-
+use common\models\CostAccumulation;
+use common\models\CostAccumulationSearch;
+use common\models\Cost;
+use common\models\CostSearch;
+use common\components\AccessRule;
+use common\models\User;
 
 
 use yii\web\Controller;
@@ -28,11 +33,36 @@ class PaperController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update'],
+                'ruleConfig'=>[
+                    'class'=>  AccessRule::className(),
+                ],
+                'only' => ['create', 'update','delete'],
                 'rules' => [
                     [
-                    'allow' => 'true',
-                    'roles' => ['@'],
+                        'actions' => ['create'],
+                        'allow'=>true,
+//                        'roles'=>[
+//                        User::ROLE_USER,
+//                            User::ROLE_REVIEWER,
+//                            User::ROLE_ADMIN
+//                        ],
+//                    'allow' => 'true',
+//                    'roles' => ['@'],
+                    ],
+                    [
+                      'actions'=>['update'],
+                        'allow'=>true,
+//                        'roles'=>[
+//                          User::ROLE_REVIEWER,
+//                            User::ROLE_ADMIN
+//                        ],
+                    ],
+                    [
+                        'actions'=>['delete'],
+                        'allow'=>true,
+//                        'roles'=>[
+//                          User::ROLE_ADMIN  
+//                        ],
                     ],
                 ]
             ],
@@ -52,62 +82,107 @@ class PaperController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
+
         $searchModel = new PaperSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $model = new Paper();
+        $model2 = new CostAccumulation();
+        $model3 = new Cost();
 
         if ($model->load(Yii::$app->request->post())) {
 //            $model->user_id;
             $model->modified_time = date('Y-m-d h:m:s');
             $model->user_id = \Yii::$app->user->id;
             $model->status = Paper::STATUS_BAYAR_BELUM;
+            $cost_id = $model3->id;
+//            print_r($cost_id);
+//            die();
             //$model->save();
             //get the instance of the uploaded file
-            
+
             $imageName = Yii::$app->security->generateRandomString();
             $image = \yii\web\UploadedFile::getInstance($model, 'pre_paper');
-            
-            if ($image !== null) {
-                $model->pre_paper = $image->getBaseName() .".pdf";
+
+            if ($image !== null && $image->extension == 'pdf') {
+
+                $model->pre_paper = $image->getBaseName() . ".pdf";
                 $path = Yii::getAlias('../web/upload/') . $model->pre_paper;
-            }
-            if ($model->save()) {
-                ($image !== null) ? $image->saveAs($path) : '';
-                return $this->redirect(['index']);
-            } else {
-            print_r($model->getErrors());
-            die();
-            }
+
+
+
+                if ($model->save()) { //selesei save
+                    ($image !== null) ? $image->saveAs($path) : '';
+
+                    $model2->user_id = $model->user_id;
+                    $model2->paper_id = $model->id;
+                    $model2->cost_id = $model3->id;
+                    
+                    //$model2->item=3;
+
+                    $countUser = CostAccumulation::find()->where(['user_id' => \Yii::$app->user->id])->count();
+
+                    if ($countUser == 0) {
+                        $total = "100000" + Cost::findOne($cost_id)->accomodation;
+                    } else {
+                        $total = "50000" + Cost::findOne($cost_id)->accomodation;
+                    }
+                    $model2->total = (string) $total;
+                    //cari uda berapa jumlah user_id di tabel paper
+                    // kalo masi o harga = kali 100 misal
+                    //kalo lebih dari 1 kali 500
+//                if (count($model2->user_id != null)) {
+//                    $model2->total = count($model2->lotal + $model3->register)
+//             
+//                    
+//                } else {
+//                    $model2->total="100000";
+//                    
+//                }
+//                  
+//                $model2->total = "50000";
+
+                    $model2->save();
+
+
+                    return $this->redirect(['index']);
+                } else {
+                              
+               }
+             
+
+            } echo"hay";
+            Yii::$app->getSession()->setFlash('gagal', [
+     'type' => 'gagal',
+     'duration' => 5000,
+     'icon' => 'fa fa-users',
+     'message' => 'My Message',
+     'title' => 'My Title',
+     'positonY' => 'top',
+     'positonX' => 'left'
+ ]);
+                   
         }
-//
-//        return $this->render('index', [
-//            'searchModel' => $searchModel,
-//            'dataProvider' => $dataProvider,
-//        ]);
-//        
         $query = Paper::find();
         $pagination = new Pagination([
             'defaultPageSize' => 5,
-            'totalCount' => $query -> count(),
-            ]);
-        
-        $paper = $query -> orderBy('pre_paper')
+            'totalCount' => $query->count(),
+        ]);
+
+        $paper = $query->orderBy('pre_paper')
                 ->offset($pagination->offset)
                 ->limit($pagination->limit)
                 ->all();
-        
-            return $this->render('index',[
-            'paper' => $paper,
-            'pagination' => $pagination,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'model'=> $model,
+
+        return $this->render('index', [
+                    'paper' => $paper,
+                    'pagination' => $pagination,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'model' => $model,
         ]);
-    
-        
     }
+
 
     /**
      * Displays a single Paper model.
@@ -116,25 +191,85 @@ class PaperController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+        $model = new CommentPaper();
+        $paper = new Paper();
+        $comments = CommentPaper::find()
+                ->where(['paper_id'=>$id])
+                ->orderBy('id DESC')
+                ->all();
         
-//        $comment = new CommentPaper();
-//        
-//        if(isset($_POST['CommentPaper'])){
-//            $comment->attributes = $_POST['CommentPaper'];
-//            $comment->paper_id= $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->user_id = \Yii::$app->user->id;
+            $model->paper_id = $id;
+            $model->save();
+            return $this->redirect(['view', 'id' => $id]);
+        } else {
+            
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+                'comments' => $comments,
+            ]);
+        }
+        
+      
+        
+    }
+    
+    /**
+     * Lists all CostAccumulation models.
+     * @return mixed
+     */
+    public function actionCost()
+    {
+        $searchModel = new CostAccumulationSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $model = new CostAccumulation();
+
+//        if ($model->load(Yii::$app->request->post())) {
+////            $model->user_id;
+//            $model->modified_time = date('Y-m-d h:m:s');
+//            $model->user_id = \Yii::$app->user->id;
+//            $model->status = Paper::STATUS_BAYAR_BELUM;
+//            //$model->save();
+//            //get the instance of the uploaded file
 //            
-//            if(Yii::app()->user->isGuest){
-//                $comment->user_id=null;
-//                
-//            }else{
-//                $comment->user_id=Yii::app()->user->id;
+//            $imageName = Yii::$app->security->generateRandomString();
+//            $image = \yii\web\UploadedFile::getInstance($model, 'pre_paper');
+//            
+//            if ($image !== null) {
+//                $model->pre_paper = $image->getBaseName() .".pdf";
+//                $path = Yii::getAlias('../web/upload/') . $model->pre_paper;
 //            }
-//            
-//        }
+//            if ($model->save()) {
+//                ($image !== null) ? $image->saveAs($path) : '';
+//                return $this->redirect(['index']);
+//            } else {
+//            print_r($model->getErrors());
+//            die();
+//            }
+//        }  
+        $query = CostAccumulation::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 5,
+            'totalCount' => $query -> count(),
+            ]);
         
+        $cost = $query -> orderBy('total')
+                ->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
+        
+            return $this->render('cost',[
+            'cost' => $cost,
+            'pagination' => $pagination,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+//            'model'=> $model,
+        ]);
     }
 
     /**
@@ -153,7 +288,7 @@ class PaperController extends Controller
             $model->save();
             //get the instance of the uploaded file
             
-            $imageName = Yii::$app->security->generateRandomString();
+             $imageName = Yii::$app->security->generateRandomString();
             $image = \yii\web\UploadedFile::getInstance($model, 'pre_paper');
             if ($image !== null) {
                 $model->pre_paper = $imageName .".pdf";
@@ -161,7 +296,7 @@ class PaperController extends Controller
             }
             if ($model->save()) {
                 ($image !== null) ? $image->saveAs($path) : '';
-                return $this->redirect(['view', 'id' => $model->id_paper]);
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {}
         } else {
             return $this->render('create', [
@@ -194,10 +329,10 @@ class PaperController extends Controller
             }
             if ($model->save()) {
                 ($image !== null) ? $image->saveAs($path) : '';
-                return $this->redirect(['view', 'id' => $model->id_paper]);
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {}
 
-//            return $this->redirect(['view', 'id' => $model->id_paper]);
+//            return $this->redirect(['view', 'id' => $model->id]);
 //
 //            return $this->redirect(['view', 'id' => $model->id]);
 

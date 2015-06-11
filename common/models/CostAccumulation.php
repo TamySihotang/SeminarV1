@@ -37,10 +37,10 @@ class CostAccumulation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'paper_id', 'cost_id', 'item', 'item_cost', 'total', 'due_date', 'status'], 'required'],
-           [['user_id', 'paper_id', 'cost_id'], 'integer'],
-            [['due_date'], 'safe'],
-            [['item', 'item_cost', 'total', 'status'], 'string', 'max' => 64]
+//            [['user_id', 'paper_id', 'cost_id', 'item', 'item_cost', 'total', 'due_date', 'status'], 'required'],
+//           [['user_id', 'paper_id', 'cost_id'], 'integer'],
+//            [['due_date'], 'safe'],
+            [[ 'total', ], 'string', 'max' => 64]
         ];
     }
 

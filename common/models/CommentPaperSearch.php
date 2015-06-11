@@ -10,13 +10,12 @@ use common\models\CommentPaper;
 /**
  * CommentPaperSearch represents the model behind the search form about `common\models\CommentPaper`.
  */
-class CommentPaperSearch extends CommentPaper
-{
+class CommentPaperSearch extends CommentPaper {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'user_id', 'paper_id'], 'integer'],
             [['content'], 'safe'],
@@ -26,8 +25,7 @@ class CommentPaperSearch extends CommentPaper
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +37,7 @@ class CommentPaperSearch extends CommentPaper
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = CommentPaper::find();
 
         $dataProvider = new ActiveDataProvider([
@@ -65,4 +62,31 @@ class CommentPaperSearch extends CommentPaper
 
         return $dataProvider;
     }
+
+    public function searchViaComment($id) {
+        $query = CommentPaper::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+//        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'paper_id' => $id,
+        ]);
+
+        $query->andFilterWhere(['like', 'content', $this->content]);
+
+        return $dataProvider;
+    }
+
 }

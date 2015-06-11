@@ -67,4 +67,32 @@ class PaperSearch extends Paper
 
         return $dataProvider;
     }
+    
+    public function searchViaPaper($id) {
+        $query = Paper::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+//        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'user_id' => $id,
+            'modified_time' => $this->modified_time,
+        ]);
+
+        $query->andFilterWhere(['like', 'pre_paper', $this->pre_paper])
+            ->andFilterWhere(['like', 'final_paper', $this->final_paper])
+            ->andFilterWhere(['like', 'status', $this->status]);
+
+        return $dataProvider;
+    }
 }

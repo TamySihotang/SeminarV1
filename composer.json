@@ -27,7 +27,15 @@
         "kmergen/yii2-jssor-slider": "dev-master",
         "kartik-v/yii2-grid": "*",
         "kartik-v/yii2-mpdf": "*",
-        "kartik-v/yii2-widget-select2": "*"
+        "kartik-v/yii2-widget-select2": "*",
+        "himiklab/yii2-ckeditor-widget": "*",
+        "mdmsoft/yii2-admin": "~1.0",
+        "2amigos/yii2-file-upload-widget": "~1.0",
+        "kartik-v/yii2-widgets": "dev-master",
+        "letyii/yii2-tinymce": "dev-master",
+        "mpdf/mpdf": "dev-master",
+        "yiidoc/yii2-redactor": "*",
+        "moonlandsoft/yii2-tinymce": "*"
 		       
     },
     "require-dev": {

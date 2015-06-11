@@ -6,8 +6,8 @@ use Yii;
 
 use common\models\User;
 use common\models\UserSearch;
-
-
+use kartik\mpdf\Pdf;
+use mPDF;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,7 +52,11 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('view', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
             'model' => $this->findModel($id),
         ]);
     }
@@ -126,4 +130,57 @@ class UserController extends Controller
     {
       return \Yii::getAlias('@imageurl').'/'.$this->picture;
     }
+    public function actionMpdfDemo1() {
+//         $content = $this->renderPartial('pdf');
+//    $pdf = new Pdf([
+//                'mode' => Pdf::MODE_CORE, 
+//        // A4 paper format
+//        'format' => Pdf::FORMAT_A4, 
+//        // portrait orientation
+//        'orientation' => Pdf::ORIENT_PORTRAIT, 
+//        // stream to browser inline
+//        'destination' => Pdf::DEST_BROWSER, 
+//        // your html content input
+//        'content' => $content,  
+//        // format content from your own css file if needed or use the
+//        // enhanced bootstrap css built by Krajee for mPDF formatting 
+//        'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+//        // any css to be embedded if required
+//        'cssInline' => '.kv-heading-1{font-size:18px}', 
+//         // set mPDF properties on the fly
+//        'options' => ['title' => 'Kartu Tanda Peserta'],
+//         // call mPDF methods on the fly
+//        'methods' => [ 
+//            'SetHeader'=>['Kartu Tanda Peserta'], 
+//            'SetFooter'=>['{PAGENO}'],
+//        ]
+//    ]);
+//    return $pdf->render();
+         $mpdf=new mPDF();
+        	$mpdf->WriteHTML($this->renderPartial('pdf'));
+        $mpdf->Output();
+        exit;
+		//return $this->renderPartial('mpdf');
+	
+    }
+    
+    public function actionCreateMPDF(){
+		$mpdf=new mPDF();
+		$mpdf->WriteHTML($this->renderPartial('pdf'));
+        $mpdf->Output();
+        exit;
+		//return $this->renderPartial('mpdf');
+	}
+	public function actionSamplePdf() {
+        $mpdf = new mPDF;
+        $mpdf->WriteHTML('pdf');
+        $mpdf->Output();
+        exit;
+    }
+	public function actionForceDownloadPdf(){
+		$mpdf=new mPDF();
+		$mpdf->WriteHTML($this->renderPartial('pdf'));
+        $mpdf->Output('MyPDF.pdf', 'D');
+        exit;
+	}
 }

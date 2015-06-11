@@ -68,7 +68,7 @@ class NewsController extends Controller {
      */
     public function actionCreate() {
         $model = new News();
-
+//        $id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = \Yii::$app->user->id;
             $model->date = date('y-m-d h:m:s');
@@ -91,7 +91,7 @@ class NewsController extends Controller {
                 ($image !== null) ? $image->saveAs($path) : '';
 //                print_r($model->getErrors());
 //            die();
-                return $this->redirect(['view', 'id' => $id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 
             }
@@ -114,13 +114,38 @@ class NewsController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
+        
+        $oldImage = $model->picture;
+        $oldfile = $model->getNewsPictureFile();
 
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){
             $model->date = date('yyyy-M-d');
-            return $this->redirect(['view', 'id' => $model->id]);
+            // $model->save();
+            
+             $imageName = Yii::$app->security->generateRandomString();
+            $image = \yii\web\UploadedFile::getInstance($model, 'picture');
+            if ($image !== FALSE && !empty($oldImage)) {
+                // $model->picture = $image->getBaseName();
+                $path = Yii::getAlias('../web/picture/') . $model->picture;
 
-            //  return $this->redirect(['view', 'id' => $model->id]);
+//                print_r($model->getErrors());
+//            die();
+            }
+            if ($model->save()) {
+                if($image !== false){
+                    if(!empty($oldfile)&& file_exists($oldfile)){
+                        unlink($oldfile);
+                    }
+                    // $path2 = $model->getNewsPictureFile();
+                    // $image->saveAs($path);
+                }
+                
+//                print_r($model->getErrors());
+//            die();
+                return $this->redirect(['view', 'id' => $id]);
+            } else {
+                
+            }
         } else {
             return $this->render('create', [
                         'model' => $model,
@@ -178,5 +203,43 @@ class NewsController extends Controller {
     public function getImageurl() {
         return \Yii::getAlias('@imageurl') . '/' . $this->picture;
     }
+
+    public function actionUrl()
+    {         
+        $uploadedFile = UploadedFile::getInstanceByName('picture'); 
+        $mime = \yii\helpers\FileHelper::getMimeType($uploadedFile->tempName);
+        $file = time()."_".$uploadedFile->name;
+        
+        $url = Yii::$app->urlManager->createAbsoluteUrl('/uploads/ckeditor/'.$file);
+        $uploadPath = Yii::getAlias('web/picture').'/uploads/ckeditor/'.$file;
+        //extensive suitability check before doing anything with the file…
+        if ($uploadedFile==null)
+        {
+           $message = "No file uploaded.";
+        }
+        else if ($uploadedFile->size == 0)
+        {
+           $message = "The file is of zero length.";
+        }
+        else if ($mime!="image/jpeg" && $mime!="image/png")
+        {
+           $message = "The image must be in either JPG or PNG format. Please upload a JPG or PNG instead.";
+        }
+        else if ($uploadedFile->tempName==null)
+        {
+           $message = "You may be attempting to hack our server. We're on to you; expect a knock on the door sometime soon.";
+        }
+        else {
+          $message = "";
+          $move = $uploadedFile->saveAs($uploadPath);
+          if(!$move)
+          {
+             $message = "Error moving uploaded file. Check the script is granted Read/Write/Modify permissions.";
+          } 
+        }
+        $funcNum = $_GET['CKEditorFuncNum'] ;
+        echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$url', '$message');</script>";        
+    } 
+
 
 }
